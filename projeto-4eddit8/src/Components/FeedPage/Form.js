@@ -28,7 +28,6 @@ function Form(props) {
         alert(error)
       })
   }
-
   function onChangeNewPostInput(event) {
     setNewPostInput(event.target.value)
   }

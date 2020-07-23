@@ -67,7 +67,7 @@ function PostsPage() {
   return (
     <StylesProvider injectFirst>
       <Main>
-        <h2>Página de Feed</h2>
+        <h2>Página de Feed</h2> 
         <LogOutButton
           size='large'
           onClick={onClickLogOut}>
