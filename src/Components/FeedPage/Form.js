@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import axios from 'axios'
+import { StylesProvider } from '@material-ui/core/styles'
 import {
   ButtonNewPost,
   InputNewPost
@@ -33,23 +34,25 @@ function Form(props) {
   }
 
   return(
-    <form onSubmit={onClickNewPost}>
-    <InputNewPost 
-      type='text'
-      value={newPostInput}
-      placeholder='quais as novidades?' 
-      variant='outlined' 
-      multiline
-      rows={3}
-      onChange={onChangeNewPostInput}
-    />
-    <ButtonNewPost
-      type='submit'
-      color='primary' 
-      variant='outlined'>
-      Postar
-    </ButtonNewPost>
-    </form>
+    <StylesProvider injectFirst>
+      <form onSubmit={onClickNewPost}>
+      <InputNewPost 
+        type='text'
+        value={newPostInput}
+        placeholder='quais as novidades?' 
+        variant='outlined' 
+        multiline
+        rows={3}
+        onChange={onChangeNewPostInput}
+      />
+      <ButtonNewPost
+        type='submit'
+        color='primary' 
+        variant='outlined'>
+        Postar
+      </ButtonNewPost>
+      </form>
+    </StylesProvider>
   )
 }
 

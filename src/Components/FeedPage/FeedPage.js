@@ -1,14 +1,12 @@
 import React, {useState, useEffect} from 'react'
 import Form from './Form'
-import { StylesProvider } from '@material-ui/core/styles';
+import { StylesProvider } from '@material-ui/core';
 import PostsCard from '../PostsCard/PostsCard'
 import {useProtectedPage} from '../../Hooks/useProtectedPage'
 import axios from 'axios'
 import { useHistory } from 'react-router-dom';
 import {
   Main,
-  InputNewPost,
-  ButtonNewPost,
   LogOutButton
 } from './style'
 
@@ -30,7 +28,6 @@ function PostsPage() {
   }
 
   function onClickPost(id) {
-    console.log(id)
     history.push('/Post/' + id)
   }
 
@@ -67,7 +64,7 @@ function PostsPage() {
   return (
     <StylesProvider injectFirst>
       <Main>
-        <h2>Página de Feed</h2> 
+        <p>Criar publicação</p> 
         <LogOutButton
           size='large'
           onClick={onClickLogOut}>

@@ -1,9 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { Link } from 'react-router-dom';
-import styled from "styled-components";
 import axios from "axios";
-
-//060ArFua9saK6pXR7xfO
+import { StylesProvider } from '@material-ui/core/styles'
+import {
+  MakeComment,
+  InputComment,
+  Main,
+  UserContainer,
+  PostContainer,
+  TextContainer,
+  ThumbDownIcon,
+  ThumbUpIcon,
+  Comments
+} from './style'
 
 function CommentPage({
     match: {
@@ -15,10 +23,11 @@ function CommentPage({
   const [comments, setComments] = useState([0])
   const [comment, setComment] = useState('')
   const [refresh, setRefresh] = useState(0);
+  const [vote, setVote] = useState(true)
 
   useEffect(() => {
     GetComments();
-  }, [refresh]);
+  }, [refresh, vote]);
 
   const GetComments = () => {
     const userToken = localStorage.getItem("token")
@@ -58,24 +67,20 @@ function CommentPage({
     })
   }
 
-  const PutPostVote = (direction) => {
+  function postVote(postId, direction) {
     const body = {
-      "direction": direction
+      direction: direction
     }
-
-    const userToken = localStorage.getItem("token")
     const headers = {
-      Authorization: userToken
+      Authorization: localStorage.getItem("token")
     }
-
-    axios.put(`https://us-central1-labenu-apis.cloudfunctions.net/labEddit/posts/${id}/vote`, body, {headers})
-    .then(response => {
-      console.log(response);
-      setRefresh(refresh + 1);
-    })
-    .catch(error => {
-      console.log(error);
-    })
+    axios.put('https://us-central1-labenu-apis.cloudfunctions.net/labEddit/posts/' + postId + '/vote', body, {headers})
+      .then((response) => {
+        setVote(!vote)
+      })
+      .catch((error) => {
+        alert(error)
+      })
   }
 
   const PutCommentVote = (direction, commentId) => {
@@ -99,43 +104,67 @@ function CommentPage({
   }
 
   function MountPost(){
-    return post && <div>
-      <div div style={{background:'grey'}}>
+    return post && 
+    <PostContainer>
+      <UserContainer>
         <h4>{post.username}</h4>
-        <h4>{post.title}</h4>
-        <p>{post.text}</p>
-        <div style={{display:'flex', justifyContent:"space-around"}}>
-          <button onClick={() => PutPostVote(1)}>Up vote</button> 
-          <p>{post.votesCount}</p>
-          <button onClick={() => PutPostVote(-1)}>Down vote</button> 
+      </UserContainer>
+      <TextContainer>
+          <h4>{post.title}</h4>
+          <p>{post.text}</p>
+      </TextContainer>
+      <section>
+        <div>
+          <ThumbUpIcon onClick={() => postVote(post.id, +1)} color='primary' />
+            <span>{post.votesCount}</span>
+          <ThumbDownIcon onClick={() => postVote(post.id, -1)} color='primary' />
         </div>
-      </div>
-    </div>
+      </section>
+    </PostContainer>
   }
   
   function MountComments(){
     return comments.map(comment => {
-      return <div style={{background:'grey'}}>
-        <h5 style={{textAlign:'center'}}>{comment.username}</h5>
-        <p style={{textAlign:'center'}}>{comment.text}</p>
-        <div style={{display:'flex', justifyContent:"space-around"}}>
-          <button onClick={() => PutCommentVote(1, comment.id)}>Up vote</button> 
-          <p>{comment.votesCount}</p>
-          <button onClick={() => PutCommentVote(-1, comment.id)}>Down vote</button> 
-        </div>
-      </div>
+      return( 
+      <Comments>
+        <h4>{comment.username}</h4>
+        <p>{comment.text}</p>
+        <section>
+          <div>
+            <ThumbUpIcon onClick={() => PutCommentVote(1, comment.id)} color='primary' />
+              <span>{comment.votesCount}</span>
+            <ThumbDownIcon onClick={() => PutCommentVote(-1, comment.id)} color='primary' />
+          </div>
+        </section>
+      </Comments>)
     })
   }
   
   return (
-    <main>
+    <StylesProvider injectFirst>
+    <Main>
       {MountPost()}
       <div>
-        <input type='text' placeholder='Escreva seu comentario' value={comment} onChange={e => setComment(e.target.value)}></input>
-        <button onClick={SendComment}>Enviar comentario</button> 
+        <InputComment 
+          type='text' 
+          placeholder='Escreva seu comentario' 
+          value={comment} 
+          onChange={e => 
+          setComment(e.target.value)} 
+          variant='outlined'
+          multiline
+          rows={3}
+        />
+        <MakeComment 
+          onClick={SendComment}
+          variant='outlined'
+          color='primary'>
+          Enviar comentario
+        </MakeComment> 
       </div>
       {MountComments()}
-    </main>
+    </Main>
+    </StylesProvider>
     )
   }
   

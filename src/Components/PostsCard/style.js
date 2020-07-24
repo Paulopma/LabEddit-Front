@@ -18,8 +18,12 @@ export const TextContainer = styled.div`
   display: flex;
   min-height: 100px;
   p {
+    text-align: justify;
+    word-break: break-all;
+    max-width: 240px;
     text-align: left;
     margin-left: 30px;
+    margin-right: 30px;
   }
   background-color: whitesmoke;
   width: inherit;
@@ -50,6 +54,18 @@ export const CardContainer = styled.div`
       justify-content: space-evenly;
     }
   }
+`
+export const Comments = styled.div`
+  margin-bottom: 24px;
+  cursor: pointer;
+  span {
+        margin-right: 4px;
+        margin-left: 4px;
+  }
+  :hover {
+    color: blue;
+  }
+  
 `
 export const ThumbUpIcon = styled(ThumbUpAltOutlinedIcon)`
   cursor: pointer;

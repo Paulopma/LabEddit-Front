@@ -5,7 +5,8 @@ import {
   ThumbUpIcon,
   ThumbDownIcon,
   UserContainer,
-  TextContainer
+  TextContainer,
+  Comments
 } from './style'
 
 function PostsCard(props) {
@@ -25,10 +26,10 @@ function PostsCard(props) {
             <span>{props.votesCount}</span>
             <ThumbDownIcon onClick={props.downVote} color='primary' />
           </div>
-          <div>
+          <Comments onClick={props.onClickPost}>
             <span>comentários:</span>
             <span>{props.commentsCount}</span>
-          </div>
+          </Comments>
         </section>
       </CardContainer>
     </Main>

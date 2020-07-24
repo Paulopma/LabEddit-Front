@@ -1,7 +1,5 @@
-import React from 'react';
-import TextField from '@material-ui/core/TextField';
 import styled from 'styled-components'
-import Button from '@material-ui/core/Button'
+import  {Button, TextField } from '@material-ui/core'
 
 export const Main = styled.main`
   display: flex;
@@ -28,3 +26,4 @@ export const LogOutButton = styled(Button)`
   color: red;
   text-transform: lowercase;
 `
+
