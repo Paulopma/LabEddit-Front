@@ -1,5 +1,5 @@
 # Labeddit
-<img src='D:\Programação\Labenu\Portfolio\LabEddit\img\Capture.JPG'>
+<img src='https://github.com/Paulopma/LabEddit/blob/master/img/Capture.JPG?raw=true'>
 
 ## Descrição
 Este projeto foi feito como exercício de front-end e trabalho em equipe. É um projeto inspirado na plataforma do Twitter, possui área de login e cadastro, e páginas cujo usuário só pode acessar se estiver logado. No página da timeline é possível criar posts, cada post tem uma página própria, onde também é possível adicionar comentários. Os posts e comentários de cada post são armazenados puxados de uma API fornecida previamente.
